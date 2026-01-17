@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Stock Symbol</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Value of Shares</th>
+            <th scope="col">Time</th>
+        </tr>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction["type"] }}</td>
+                <td>{{ transaction["symbol"] }}</td>
+                <td>{{ transaction["shares"] }}</td>
+                <td>{{ transaction["price"] | usd }}</td>
+                <td>{{ transaction["time"] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

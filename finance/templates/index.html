@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Stock Symbol</th>
+            <th scope="col">Shares Owned</th>
+            <th scope="col">Current Price</th>
+            <th scope="col">Value of Shares</th>
+        </tr>
+        {% for stock in stocks %}
+            <tr>
+                <td>{{ stock["symbol"] }}</td>
+                <td>{{ stock["shares"] }}</td>
+                <td>{{ stock["price"] | usd }}</td>
+                <td>{{ stock["total"] | usd }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Cash</th>
+            <th scope="col">Account Balance</th>
+        </tr>
+        <tr>
+            <td>{{ cash | usd }}</td>
+            <td>{{ value | usd }}</td>
+        </tr>
+    </table>
+    <div class="mb-3">
+        <form action="/add" method="post">
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" name="money" placeholder="Amount to Add" type="number">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Add Money</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
