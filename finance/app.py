@@ -238,13 +238,20 @@ def sell():
         if request.form.get("symbol") not in stocks:
             return apology("stock not owned", 400)
 
-        shares = request.form.get("shares")
+        shares_str = request.form.get("shares", "").strip()
 
-        if not shares or not shares.isdigit():
+        try:
+            shares_float = float(shares_str)
+        except ValueError:
             return apology("invalid number of shares", 400)
 
-        if int(shares) <= 0:
+        if not shares_float.is_integer():
             return apology("invalid number of shares", 400)
+
+        shares = int(shares_float)
+
+        if shares <= 0 or shares > stocks[request.form.get("symbol")]:
+            return apology("invalid amount", 400)
 
         symbol = lookup(request.form.get("symbol"))
 
