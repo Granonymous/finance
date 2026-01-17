@@ -10,6 +10,7 @@ from helpers import apology, login_required, lookup, usd
 
 # Configure application
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY", "dev")
 
 # Custom filter
 app.jinja_env.filters["usd"] = usd
